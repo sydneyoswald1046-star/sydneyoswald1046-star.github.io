@@ -517,6 +517,137 @@ section { padding: 100px 0; }
   100% { transform: translateX(-50%); }
 }
 
+/* ─── AI CALLOUT ─── */
+.ai-section {
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f0ebe5 0%, #e8e0d6 50%, #f0ebe5 100%);
+  z-index: 0;
+}
+
+.ai-section .container { position: relative; z-index: 1; }
+
+.ai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.ai-left {}
+
+.ai-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px);
+}
+
+.ai-label svg { flex-shrink: 0; }
+
+.ai-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.ai-title em {
+  font-style: italic;
+  color: var(--text-mid);
+}
+
+.ai-desc {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-mid);
+  max-width: 480px;
+}
+
+.ai-right {}
+
+.ai-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ai-stat {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  border: 1px solid rgba(255,255,255,0.9);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.ai-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+}
+
+.ai-stat-number {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.ai-stat-label {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.ai-tools {
+  margin-top: 16px;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ai-tool-tag {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.9);
+  color: var(--text-mid);
+  transition: all 0.3s;
+}
+
+.ai-tool-tag:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+@media (max-width: 768px) {
+  .ai-grid { grid-template-columns: 1fr; gap: 40px; }
+  .ai-stats { grid-template-columns: 1fr 1fr; }
+}
+
 /* ─── SKILLS ─── */
 .skills-columns {
   display: grid;
@@ -763,7 +894,7 @@ footer p {
       <span class="line"><span>that <em>ship.</em></span></span>
     </h1>
     <p class="hero-desc">
-      From idea to App Store — I design, build, and deploy production mobile apps with React Native and SwiftUI. Real payments, real users, real scale.
+      From idea to App Store — I design, build, and deploy production mobile apps with React Native and SwiftUI. AI-augmented workflow, human-driven decisions. Real payments, real users, real scale.
     </p>
     <div class="hero-links">
       <a href="https://github.com/sydneyoswald1046-star" target="_blank" class="hero-link">
@@ -795,6 +926,8 @@ footer p {
     <span>NDI</span><span class="dot">·</span>
     <span>App Store</span><span class="dot">·</span>
     <span>Expo</span><span class="dot">·</span>
+    <span>Claude Code</span><span class="dot">·</span>
+    <span>AI-Augmented Dev</span><span class="dot">·</span>
     <span>React Native</span><span class="dot">·</span>
     <span>SwiftUI</span><span class="dot">·</span>
     <span>TypeScript</span><span class="dot">·</span>
@@ -805,6 +938,8 @@ footer p {
     <span>NDI</span><span class="dot">·</span>
     <span>App Store</span><span class="dot">·</span>
     <span>Expo</span><span class="dot">·</span>
+    <span>Claude Code</span><span class="dot">·</span>
+    <span>AI-Augmented Dev</span><span class="dot">·</span>
   </div>
 </div>
 
@@ -918,6 +1053,51 @@ footer p {
           View on GitHub
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
         </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI-AUGMENTED -->
+<section class="ai-section">
+  <div class="container">
+    <div class="ai-grid">
+      <div class="ai-left reveal">
+        <div class="ai-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          AI-Augmented Developer
+        </div>
+        <h2 class="ai-title">I use AI as a<br><em>force multiplier.</em></h2>
+        <p class="ai-desc">Every project in this portfolio was built with AI-assisted development. I use tools like Claude Code, ChatGPT, and GitHub Copilot daily — not to replace engineering judgment, but to ship faster, debug smarter, and maintain quality at scale. The architecture decisions, product thinking, and final review are mine. The velocity is superhuman.</p>
+      </div>
+      <div class="ai-right reveal">
+        <div class="ai-stats">
+          <div class="ai-stat">
+            <div class="ai-stat-number">3</div>
+            <div class="ai-stat-label">Production apps built with AI-assisted workflows</div>
+          </div>
+          <div class="ai-stat">
+            <div class="ai-stat-number">2</div>
+            <div class="ai-stat-label">Live on the App Store right now</div>
+          </div>
+          <div class="ai-stat">
+            <div class="ai-stat-number">10x</div>
+            <div class="ai-stat-label">Faster iteration from prompt to production</div>
+          </div>
+          <div class="ai-stat">
+            <div class="ai-stat-number">0</div>
+            <div class="ai-stat-label">Corners cut — AI assists, I decide</div>
+          </div>
+          <div class="ai-tools">
+            <span class="ai-tool-tag">Claude Code</span>
+            <span class="ai-tool-tag">Claude (Anthropic)</span>
+            <span class="ai-tool-tag">ChatGPT</span>
+            <span class="ai-tool-tag">GitHub Copilot</span>
+            <span class="ai-tool-tag">Cursor</span>
+            <span class="ai-tool-tag">Prompt Engineering</span>
+            <span class="ai-tool-tag">AI Code Review</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
