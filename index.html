@@ -3,300 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oswald Botchway — I Build Apps</title>
+<title>Oswald Botchway — Mobile Software Engineer</title>
 <meta name="description" content="Mobile Software Engineer shipping production iOS and React Native apps.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0a0a0f;
-  --bg-card: #12121a;
-  --bg-card-hover: #1a1a28;
-  --text: #f4f4f7;
-  --text-mid: #9d9db5;
-  --text-dim: #5a5a72;
+  --bg: #1a1a1e;
+  --bg-card: #222228;
+  --bg-card-hover: #2a2a32;
+  --text: #f0ede8;
+  --text-mid: #a09a90;
+  --text-dim: #5a5652;
+  --accent: #7ecbc0;
   --blue: #4f8cff;
   --purple: #a855f7;
   --pink: #ec4899;
   --green: #34d399;
   --orange: #fb923c;
   --cyan: #22d3ee;
-  --yellow: #facc15;
-  --grad-1: linear-gradient(135deg, #4f8cff, #a855f7);
-  --grad-2: linear-gradient(135deg, #ec4899, #fb923c);
-  --grad-3: linear-gradient(135deg, #34d399, #22d3ee);
-  --grad-text: linear-gradient(135deg, #4f8cff, #a855f7, #ec4899);
-  --radius: 16px;
-  --radius-sm: 10px;
-  --font: 'Outfit', sans-serif;
+  --border: rgba(255,255,255,0.06);
+  --sans: 'Outfit', sans-serif;
+  --serif: 'Playfair Display', serif;
   --mono: 'JetBrains Mono', monospace;
-  --shadow: 0 8px 32px rgba(0,0,0,0.3);
-  --glow-blue: 0 0 40px rgba(79,140,255,0.15);
-  --glow-purple: 0 0 40px rgba(168,85,247,0.15);
-  --glow-pink: 0 0 40px rgba(236,72,153,0.15);
+  --radius: 14px;
 }
 
 html {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font);
+  font-family: var(--sans);
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
 }
 
 body { overflow-x: hidden; }
-::selection { background: var(--purple); color: #fff; }
+::selection { background: var(--accent); color: var(--bg); }
 a { color: inherit; text-decoration: none; }
 
 .wrap {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 40px;
 }
 
-body { opacity: 0; animation: fadeBody 0.6s 0.1s forwards; }
-@keyframes fadeBody { to { opacity: 1; } }
+body { opacity: 0; animation: bodyIn 0.6s 0.1s forwards; }
+@keyframes bodyIn { to { opacity: 1; } }
 
-/* ─── NAV ─── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 18px 0;
-  background: rgba(10,10,15,0.8);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+/* ═══════════════════════════════════
+   HERO — Full viewport, name-forward
+   ═══════════════════════════════════ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-nav .wrap {
+/* Warm diffused glow */
+.hero-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+  height: 70vh;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(200,80,50,0.35) 0%, rgba(180,60,40,0.2) 30%, rgba(140,40,60,0.1) 50%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  animation: glowPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.85; }
+}
+
+/* Top tagline */
+.hero-top {
+  position: relative;
+  z-index: 2;
+  padding: 40px 40px 0;
+}
+
+.hero-tagline {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--text-mid);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.hero-tagline em {
+  font-style: italic;
+  font-family: var(--serif);
+  color: var(--text);
+}
+
+/* Giant name */
+.hero-name-row {
+  position: relative;
+  z-index: 2;
+  padding: 0 40px;
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+  line-height: 0.85;
+}
+
+.hero-first {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(6rem, 15vw, 16rem);
+  color: var(--text);
+  letter-spacing: -0.04em;
+  opacity: 0;
+  transform: translateY(60px);
+  animation: nameUp 1s 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.hero-last {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(6rem, 15vw, 16rem);
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(60px);
+  animation: nameUp 1s 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes nameUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bottom bar */
+.hero-bottom {
+  position: relative;
+  z-index: 2;
+  padding: 0 40px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--border);
+  margin: 0 40px;
+  padding-top: 20px;
+}
+
+.hero-version {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-socials {
+  display: flex;
+  gap: 20px;
   align-items: center;
 }
 
-.nav-logo {
-  font-weight: 800;
-  font-size: 1.1rem;
-  background: var(--grad-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.hero-socials span.sep {
+  color: var(--text-dim);
+  font-size: 0.7rem;
 }
 
-.nav-links { display: flex; gap: 28px; list-style: none; }
-
-.nav-links a {
-  font-size: 0.82rem;
-  font-weight: 500;
+.hero-socials a {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--text-mid);
   transition: color 0.3s;
 }
 
-.nav-links a:hover { color: var(--text); }
+.hero-socials a:hover { color: var(--text); }
 
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh;
+.hero-nav {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 120px 0 80px;
-  position: relative;
-  overflow: hidden;
+  gap: 28px;
 }
 
-.hero-grid-bg {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(79,140,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(79,140,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse at 30% 50%, black 20%, transparent 70%);
-}
-
-.hero-glow {
-  position: absolute;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.12;
-  pointer-events: none;
-}
-
-.hero-glow-1 { background: var(--blue); top: -100px; left: -100px; }
-.hero-glow-2 { background: var(--purple); bottom: -150px; right: -100px; }
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: var(--green);
-  background: rgba(52,211,153,0.08);
-  border: 1px solid rgba(52,211,153,0.15);
-  padding: 8px 16px;
-  border-radius: 50px;
-  margin-bottom: 28px;
-  width: fit-content;
-  opacity: 0;
-  animation: slideUp 0.8s 0.3s forwards;
-}
-
-.hero-badge .dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.hero h1 {
-  font-size: clamp(3.2rem, 8vw, 6rem);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin-bottom: 10px;
-}
-
-.hero h1 .line {
-  display: block;
-  overflow: hidden;
-}
-
-.hero h1 .line span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(120%);
-  animation: slideUp 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-.hero h1 .line:nth-child(1) span { animation-delay: 0.4s; }
-.hero h1 .line:nth-child(2) span { animation-delay: 0.55s; }
-.hero h1 .line:nth-child(3) span { animation-delay: 0.7s; }
-
-.hero h1 .gradient {
-  background: var(--grad-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@keyframes slideUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hero-sub {
-  font-size: 1.15rem;
-  font-weight: 400;
-  color: var(--text-mid);
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 36px;
-  opacity: 0;
-  animation: slideUp 0.8s 0.9s forwards;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: slideUp 0.8s 1.1s forwards;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: 50px;
-  font-family: var(--font);
-  font-size: 0.88rem;
+.hero-nav a {
+  font-size: 0.76rem;
   font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.btn-fill {
-  background: var(--grad-1);
-  color: #fff;
-}
-
-.btn-fill:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 30px rgba(79,140,255,0.25);
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--text-mid);
+  transition: color 0.3s;
 }
 
-.btn-outline:hover {
-  border-color: var(--blue);
-  color: var(--text);
-  transform: translateY(-2px);
-}
+.hero-nav a:hover { color: var(--text); }
 
-/* ─── STATS STRIP ─── */
-.stats-strip {
-  padding: 60px 0;
-  border-top: 1px solid rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.stat-box {
-  text-align: center;
-  padding: 24px 16px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  transition: all 0.4s;
-}
-
-.stat-box:hover {
-  border-color: rgba(255,255,255,0.08);
-  transform: translateY(-3px);
-}
-
-.stat-num {
-  font-size: 2.4rem;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-
-.stat-num.c-blue { color: var(--blue); }
-.stat-num.c-purple { color: var(--purple); }
-.stat-num.c-green { color: var(--green); }
-.stat-num.c-pink { color: var(--pink); }
-
-.stat-label {
-  font-size: 0.78rem;
-  color: var(--text-dim);
-  line-height: 1.4;
-}
-
-/* ─── SECTION ─── */
-section { padding: 90px 0; }
+/* ═══════════════════════
+   CONTENT SECTIONS
+   ═══════════════════════ */
+section { padding: 100px 0; }
 
 .section-tag {
   display: inline-flex;
@@ -304,7 +217,7 @@ section { padding: 90px 0; }
   gap: 6px;
   font-family: var(--mono);
   font-size: 0.68rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 6px 14px;
@@ -312,238 +225,249 @@ section { padding: 90px 0; }
   margin-bottom: 16px;
 }
 
-.tag-blue { color: var(--blue); background: rgba(79,140,255,0.08); border: 1px solid rgba(79,140,255,0.12); }
+.tag-accent { color: var(--accent); background: rgba(126,203,192,0.08); border: 1px solid rgba(126,203,192,0.12); }
 .tag-purple { color: var(--purple); background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.12); }
 .tag-pink { color: var(--pink); background: rgba(236,72,153,0.08); border: 1px solid rgba(236,72,153,0.12); }
 .tag-green { color: var(--green); background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.12); }
 .tag-orange { color: var(--orange); background: rgba(251,146,60,0.08); border: 1px solid rgba(251,146,60,0.12); }
-.tag-cyan { color: var(--cyan); background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.12); }
+.tag-blue { color: var(--blue); background: rgba(79,140,255,0.08); border: 1px solid rgba(79,140,255,0.12); }
 
 .section-title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
-.section-desc {
+.section-sub {
   font-size: 1rem;
   color: var(--text-mid);
-  max-width: 500px;
+  max-width: 480px;
   line-height: 1.7;
   margin-bottom: 48px;
 }
 
-/* ─── APP CARDS ─── */
-.app-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+/* ─── ABOUT ─── */
+.about-banner {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
 }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-text {
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--text-mid);
+}
+
+.about-text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.about-stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.4s;
+}
+
+.about-stat:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
+
+.about-stat-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.about-stat-num.c1 { color: var(--accent); }
+.about-stat-num.c2 { color: var(--blue); }
+.about-stat-num.c3 { color: var(--purple); }
+.about-stat-num.c4 { color: var(--pink); }
+
+.about-stat-label {
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* ─── APP CARDS ─── */
+.app-list { display: flex; flex-direction: column; gap: 20px; }
 
 .app-card {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.2fr;
   background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .app-card:hover {
-  border-color: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.1);
   transform: translateY(-4px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
 }
 
-.app-card-visual {
+.app-visual {
   position: relative;
-  min-height: 360px;
+  min-height: 340px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
-.app-card-visual::before {
+.app-visual::before {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.06;
+  opacity: 0.08;
 }
 
-.app-card:nth-child(1) .app-card-visual::before { background: var(--grad-1); opacity: 0.1; }
-.app-card:nth-child(2) .app-card-visual::before { background: var(--grad-2); opacity: 0.1; }
-.app-card:nth-child(3) .app-card-visual::before { background: var(--grad-3); opacity: 0.1; }
+.app-card:nth-child(1) .app-visual::before { background: linear-gradient(135deg, var(--blue), var(--accent)); opacity: 0.1; }
+.app-card:nth-child(2) .app-visual::before { background: linear-gradient(135deg, var(--pink), var(--orange)); opacity: 0.1; }
+.app-card:nth-child(3) .app-visual::before { background: linear-gradient(135deg, var(--green), var(--cyan)); opacity: 0.1; }
 
-.app-mockup {
-  width: 140px;
-  height: 280px;
-  border-radius: 28px;
-  border: 3px solid rgba(255,255,255,0.1);
+.phone {
+  width: 130px; height: 260px;
+  border-radius: 24px;
+  border: 3px solid rgba(255,255,255,0.08);
   background: var(--bg);
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 12px;
-  overflow: hidden;
+  padding: 18px 10px;
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.app-card:hover .app-mockup { transform: scale(1.05) translateY(-6px); }
+.app-card:hover .phone { transform: scale(1.06) translateY(-6px); }
 
-.app-mockup-notch {
-  width: 50px; height: 5px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.08);
-  margin-bottom: 14px;
-  flex-shrink: 0;
-}
+.phone-notch { width: 44px; height: 4px; border-radius: 10px; background: rgba(255,255,255,0.06); margin-bottom: 12px; }
+.phone-icon { font-size: 2rem; margin-bottom: 8px; }
+.phone-label { font-weight: 700; font-size: 0.68rem; letter-spacing: 0.04em; margin-bottom: 12px; }
+.phone-lines { width: 100%; display: flex; flex-direction: column; gap: 7px; }
+.phone-line { height: 5px; border-radius: 3px; opacity: 0.12; }
 
-.app-mockup-icon {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-}
+.app-card:nth-child(1) .phone-label { color: var(--blue); }
+.app-card:nth-child(1) .phone-line { background: var(--blue); }
+.app-card:nth-child(2) .phone-label { color: var(--pink); }
+.app-card:nth-child(2) .phone-line { background: var(--pink); }
+.app-card:nth-child(3) .phone-label { color: var(--green); }
+.app-card:nth-child(3) .phone-line { background: var(--green); }
 
-.app-mockup-title {
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  margin-bottom: 12px;
-}
+.app-info { padding: 36px; display: flex; flex-direction: column; justify-content: center; }
 
-.app-mockup-lines {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.app-mockup-line {
-  height: 6px;
-  border-radius: 3px;
-  opacity: 0.15;
-}
-
-.app-card:nth-child(1) .app-mockup-line { background: var(--blue); }
-.app-card:nth-child(2) .app-mockup-line { background: var(--pink); }
-.app-card:nth-child(3) .app-mockup-line { background: var(--green); }
-
-.app-card-info {
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.app-card-badge {
+.app-badge {
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 5px 12px;
+  padding: 4px 10px;
   border-radius: 50px;
   width: fit-content;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
-.app-card-name {
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
+.app-name { font-size: 1.7rem; font-weight: 800; margin-bottom: 8px; }
 
-.app-card-desc {
-  font-size: 0.9rem;
+.app-desc {
+  font-size: 0.88rem;
   color: var(--text-mid);
   line-height: 1.7;
-  margin-bottom: 20px;
-}
-
-.app-card-features {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 20px;
-}
-
-.app-card-features li {
-  font-size: 0.8rem;
-  color: var(--text-mid);
-  padding-left: 16px;
-  position: relative;
-}
-
-.app-card-features li::before {
-  content: '>';
-  position: absolute;
-  left: 0;
-  font-family: var(--mono);
-  font-weight: 700;
-  font-size: 0.7rem;
-}
-
-.app-card:nth-child(1) .app-card-features li::before { color: var(--blue); }
-.app-card:nth-child(2) .app-card-features li::before { color: var(--pink); }
-.app-card:nth-child(3) .app-card-features li::before { color: var(--green); }
-
-.app-card-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
   margin-bottom: 18px;
 }
 
+.app-features {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.app-features li {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  padding-left: 14px;
+  position: relative;
+}
+
+.app-features li::before {
+  content: '>';
+  position: absolute; left: 0;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.68rem;
+}
+
+.app-card:nth-child(1) .app-features li::before { color: var(--blue); }
+.app-card:nth-child(2) .app-features li::before { color: var(--pink); }
+.app-card:nth-child(3) .app-features li::before { color: var(--green); }
+
+.app-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+
 .pill {
   font-family: var(--mono);
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   font-weight: 500;
-  padding: 5px 12px;
+  padding: 5px 11px;
   border-radius: 6px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
   color: var(--text-mid);
   transition: all 0.3s;
 }
 
-.pill:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+.pill:hover { background: rgba(255,255,255,0.06); color: var(--text); }
 
-.app-card-link {
+.app-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   transition: gap 0.3s;
 }
 
-.app-card:nth-child(1) .app-card-link { color: var(--blue); }
-.app-card:nth-child(2) .app-card-link { color: var(--pink); }
-.app-card:nth-child(3) .app-card-link { color: var(--green); }
+.app-card:nth-child(1) .app-link { color: var(--blue); }
+.app-card:nth-child(2) .app-link { color: var(--pink); }
+.app-card:nth-child(3) .app-link { color: var(--green); }
+.app-link:hover { gap: 14px; }
 
-.app-card-link:hover { gap: 14px; }
-
-/* ─── AI SECTION ─── */
-.ai-banner {
+/* ─── AI ─── */
+.ai-strip {
   padding: 80px 0;
-  border-top: 1px solid rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
 }
 
-.ai-banner::before {
+.ai-strip::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(168,85,247,0.04), rgba(79,140,255,0.04));
+  background: linear-gradient(135deg, rgba(168,85,247,0.03), rgba(79,140,255,0.03));
 }
 
-.ai-banner .wrap { position: relative; }
+.ai-strip .wrap { position: relative; }
 
 .ai-content {
   display: grid;
@@ -552,35 +476,17 @@ section { padding: 90px 0; }
   align-items: center;
 }
 
-.ai-left-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--purple);
-  margin-bottom: 16px;
-}
-
-.ai-left-tag svg { flex-shrink: 0; }
-
 .ai-heading {
-  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
   font-weight: 800;
   margin-bottom: 14px;
   line-height: 1.2;
 }
 
-.ai-heading .gradient {
-  background: var(--grad-1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+.ai-heading .hl { color: var(--accent); }
 
 .ai-text {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: var(--text-mid);
   line-height: 1.75;
 }
@@ -588,51 +494,38 @@ section { padding: 90px 0; }
 .ai-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
 }
 
 .ai-card {
   background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: var(--radius-sm);
-  padding: 22px 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 16px;
   transition: all 0.4s;
 }
 
-.ai-card:hover {
-  border-color: rgba(168,85,247,0.15);
-  transform: translateY(-3px);
-}
+.ai-card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
 
-.ai-card-num {
-  font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-
+.ai-card-num { font-size: 1.8rem; font-weight: 800; margin-bottom: 2px; }
 .ai-card:nth-child(1) .ai-card-num { color: var(--blue); }
 .ai-card:nth-child(2) .ai-card-num { color: var(--purple); }
-.ai-card:nth-child(3) .ai-card-num { color: var(--green); }
+.ai-card:nth-child(3) .ai-card-num { color: var(--accent); }
 .ai-card:nth-child(4) .ai-card-num { color: var(--pink); }
 
-.ai-card-label {
-  font-size: 0.74rem;
-  color: var(--text-dim);
-  line-height: 1.4;
-}
+.ai-card-label { font-size: 0.72rem; color: var(--text-dim); line-height: 1.4; }
 
 .ai-tools-row {
   grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
 }
 
-.ai-tool {
+.ai-pill {
   font-family: var(--mono);
-  font-size: 0.64rem;
-  font-weight: 500;
-  padding: 6px 14px;
+  font-size: 0.62rem;
+  padding: 5px 12px;
   border-radius: 50px;
   background: rgba(168,85,247,0.06);
   border: 1px solid rgba(168,85,247,0.1);
@@ -640,203 +533,103 @@ section { padding: 90px 0; }
   transition: all 0.3s;
 }
 
-.ai-tool:hover {
-  background: var(--purple);
-  color: #fff;
-  border-color: var(--purple);
-}
+.ai-pill:hover { background: var(--purple); color: #fff; border-color: var(--purple); }
 
 /* ─── SKILLS ─── */
-.skills-mega {
+.skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 16px;
 }
 
-.skill-card {
+.sk-card {
   background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 28px 24px;
+  padding: 26px 22px;
   transition: all 0.4s;
   position: relative;
   overflow: hidden;
 }
 
-.skill-card::before {
+.sk-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  border-radius: 3px 3px 0 0;
 }
 
-.skill-card:nth-child(1)::before { background: var(--grad-1); }
-.skill-card:nth-child(2)::before { background: var(--grad-2); }
-.skill-card:nth-child(3)::before { background: var(--grad-3); }
-.skill-card:nth-child(4)::before { background: linear-gradient(135deg, var(--yellow), var(--orange)); }
-.skill-card:nth-child(5)::before { background: linear-gradient(135deg, var(--cyan), var(--blue)); }
-.skill-card:nth-child(6)::before { background: linear-gradient(135deg, var(--purple), var(--pink)); }
+.sk-card:nth-child(1)::before { background: linear-gradient(90deg, var(--blue), var(--accent)); }
+.sk-card:nth-child(2)::before { background: linear-gradient(90deg, var(--pink), var(--orange)); }
+.sk-card:nth-child(3)::before { background: linear-gradient(90deg, var(--green), var(--cyan)); }
+.sk-card:nth-child(4)::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+.sk-card:nth-child(5)::before { background: linear-gradient(90deg, var(--orange), var(--pink)); }
+.sk-card:nth-child(6)::before { background: linear-gradient(90deg, var(--accent), var(--blue)); }
 
-.skill-card:hover {
-  border-color: rgba(255,255,255,0.08);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-}
+.sk-card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-3px); }
 
-.skill-card-icon {
-  font-size: 1.6rem;
-  margin-bottom: 14px;
-}
-
-.skill-card-title {
-  font-weight: 700;
-  font-size: 1rem;
-  margin-bottom: 14px;
-}
-
-.skill-card-items {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.skill-card-items li {
-  font-size: 0.84rem;
-  color: var(--text-mid);
-  padding: 3px 0;
-  transition: all 0.2s;
-  cursor: default;
-}
-
-.skill-card-items li:hover {
-  color: var(--text);
-  padding-left: 6px;
-}
+.sk-icon { font-size: 1.4rem; margin-bottom: 12px; }
+.sk-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; }
+.sk-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.sk-list li { font-size: 0.82rem; color: var(--text-mid); cursor: default; transition: all 0.2s; }
+.sk-list li:hover { color: var(--text); padding-left: 5px; }
 
 /* ─── EXPERIENCE ─── */
-.timeline {
-  position: relative;
-  padding-left: 32px;
-}
+.timeline { position: relative; padding-left: 28px; }
 
 .timeline::before {
   content: '';
   position: absolute;
   left: 0; top: 0; bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, var(--blue), var(--purple), var(--pink), var(--green));
+  background: linear-gradient(to bottom, var(--blue), var(--purple), var(--pink));
   border-radius: 2px;
 }
 
-.tl-item {
-  position: relative;
-  padding: 0 0 48px 28px;
-}
-
+.tl-item { position: relative; padding: 0 0 44px 24px; }
 .tl-item:last-child { padding-bottom: 0; }
 
 .tl-dot {
   position: absolute;
-  left: -37px; top: 6px;
-  width: 12px; height: 12px;
+  left: -33px; top: 5px;
+  width: 10px; height: 10px;
   border-radius: 50%;
   border: 2px solid;
   background: var(--bg);
 }
 
-.tl-item:nth-child(1) .tl-dot { border-color: var(--blue); box-shadow: 0 0 12px rgba(79,140,255,0.3); }
-.tl-item:nth-child(2) .tl-dot { border-color: var(--purple); box-shadow: 0 0 12px rgba(168,85,247,0.3); }
-.tl-item:nth-child(3) .tl-dot { border-color: var(--pink); box-shadow: 0 0 12px rgba(236,72,153,0.3); }
+.tl-item:nth-child(1) .tl-dot { border-color: var(--blue); box-shadow: 0 0 10px rgba(79,140,255,0.3); }
+.tl-item:nth-child(2) .tl-dot { border-color: var(--purple); box-shadow: 0 0 10px rgba(168,85,247,0.3); }
+.tl-item:nth-child(3) .tl-dot { border-color: var(--pink); box-shadow: 0 0 10px rgba(236,72,153,0.3); }
 
-.tl-date {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  margin-bottom: 6px;
-}
-
+.tl-date { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; margin-bottom: 5px; }
 .tl-item:nth-child(1) .tl-date { color: var(--blue); }
 .tl-item:nth-child(2) .tl-date { color: var(--purple); }
 .tl-item:nth-child(3) .tl-date { color: var(--pink); }
 
-.tl-role {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 3px;
-}
-
-.tl-company {
-  font-size: 0.84rem;
-  color: var(--text-dim);
-  margin-bottom: 14px;
-}
-
-.tl-bullets {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.tl-bullets li {
-  font-size: 0.84rem;
-  color: var(--text-mid);
-  line-height: 1.6;
-  padding-left: 16px;
-  position: relative;
-}
-
-.tl-bullets li::before {
-  content: '>';
-  position: absolute;
-  left: 0;
-  font-family: var(--mono);
-  font-weight: 700;
-  font-size: 0.7rem;
-  color: var(--text-dim);
-}
+.tl-role { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+.tl-company { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 12px; }
+.tl-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.tl-bullets li { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; padding-left: 14px; position: relative; }
+.tl-bullets li::before { content: '>'; position: absolute; left: 0; font-family: var(--mono); font-weight: 700; font-size: 0.68rem; color: var(--text-dim); }
 
 /* ─── EDUCATION ─── */
 .edu-card {
   background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 32px;
+  padding: 28px;
   display: flex;
-  gap: 24px;
+  gap: 20px;
   align-items: center;
   transition: all 0.4s;
 }
 
-.edu-card:hover {
-  border-color: rgba(255,255,255,0.08);
-  transform: translateY(-3px);
-}
-
-.edu-icon {
-  font-size: 2.4rem;
-  flex-shrink: 0;
-}
-
-.edu-title {
-  font-weight: 700;
-  font-size: 1.05rem;
-  margin-bottom: 3px;
-}
-
-.edu-school {
-  font-size: 0.84rem;
-  color: var(--text-mid);
-  margin-bottom: 2px;
-}
-
-.edu-date {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--text-dim);
-}
+.edu-card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+.edu-icon { font-size: 2rem; }
+.edu-title { font-weight: 700; margin-bottom: 2px; }
+.edu-school { font-size: 0.84rem; color: var(--text-mid); margin-bottom: 2px; }
+.edu-note { font-size: 0.76rem; color: var(--text-dim); }
 
 /* ─── CONTACT ─── */
 .contact-section {
@@ -848,199 +641,188 @@ section { padding: 90px 0; }
 
 .contact-glow {
   position: absolute;
-  width: 500px; height: 500px;
+  width: 400px; height: 400px;
   border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.08;
+  filter: blur(100px);
+  opacity: 0.06;
   pointer-events: none;
 }
 
-.contact-glow-1 { background: var(--blue); top: 50%; left: 20%; transform: translate(-50%, -50%); }
-.contact-glow-2 { background: var(--purple); top: 50%; right: 20%; transform: translate(50%, -50%); }
+.cg1 { background: var(--accent); top: 40%; left: 25%; }
+.cg2 { background: var(--purple); top: 40%; right: 25%; }
 
 .contact-section .wrap { position: relative; }
 
 .contact-title {
-  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
   font-weight: 900;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.contact-title .gradient {
-  background: var(--grad-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+.contact-title .hl { color: var(--accent); }
 
 .contact-sub {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-mid);
-  margin-bottom: 36px;
-  line-height: 1.7;
+  margin-bottom: 32px;
 }
 
-.contact-btns {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
+.contact-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 50px;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
+
+.btn-fill { background: var(--accent); color: var(--bg); }
+.btn-fill:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 8px 28px rgba(126,203,192,0.2); }
+.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text-mid); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); }
 
 /* ─── FOOTER ─── */
 footer {
   padding: 28px 0;
-  border-top: 1px solid rgba(255,255,255,0.04);
+  border-top: 1px solid var(--border);
 }
 
-footer .wrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-footer p {
-  font-size: 0.72rem;
-  color: var(--text-dim);
-}
-
-.footer-links { display: flex; gap: 20px; list-style: none; }
-
-.footer-links a {
-  font-size: 0.72rem;
-  color: var(--text-dim);
-  transition: color 0.3s;
-}
-
+footer .wrap { display: flex; justify-content: space-between; align-items: center; }
+footer p { font-size: 0.7rem; color: var(--text-dim); }
+.footer-links { display: flex; gap: 18px; list-style: none; }
+.footer-links a { font-size: 0.7rem; color: var(--text-dim); transition: color 0.3s; }
 .footer-links a:hover { color: var(--text); }
 
 /* ─── REVEAL ─── */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(36px);
   transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
+  .hero-name-row { flex-direction: column; gap: 0; align-items: flex-start; }
+  .hero-bottom { flex-direction: column; gap: 16px; align-items: flex-start; margin: 0 20px; padding: 16px 0 24px; }
+  .hero-top { padding: 28px 20px 0; }
+  .hero-name-row { padding: 0 20px; }
   .app-card { grid-template-columns: 1fr; }
-  .app-card-visual { min-height: 240px; }
-  .skills-mega { grid-template-columns: 1fr 1fr; }
+  .app-visual { min-height: 220px; }
+  .about-grid { grid-template-columns: 1fr; }
   .ai-content { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 640px) {
   .wrap { padding: 0 20px; }
-  .nav-links { display: none; }
-  .stats-row { grid-template-columns: 1fr 1fr; }
-  .skills-mega { grid-template-columns: 1fr; }
-  .app-card-features { grid-template-columns: 1fr; }
-  .ai-cards { grid-template-columns: 1fr 1fr; }
-  footer .wrap { flex-direction: column; gap: 10px; }
+  .hero-socials { display: none; }
+  .hero-nav { gap: 16px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .app-features { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  footer .wrap { flex-direction: column; gap: 8px; }
   .edu-card { flex-direction: column; text-align: center; }
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <a href="#" class="nav-logo">OB</a>
-    <ul class="nav-links">
-      <li><a href="#apps">Apps</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- HERO -->
+<!-- ═══════ HERO ═══════ -->
 <header class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow hero-glow-1"></div>
-  <div class="hero-glow hero-glow-2"></div>
-  <div class="wrap">
-    <div class="hero-badge"><span class="dot"></span> Open to opportunities</div>
-    <h1>
-      <span class="line"><span>I build apps</span></span>
-      <span class="line"><span>that people</span></span>
-      <span class="line"><span class="gradient">actually use.</span></span>
-    </h1>
-    <p class="hero-sub">Mobile Software Engineer in Dallas, TX. I take ideas from concept to the App Store — React Native, SwiftUI, real payments, real users. AI-augmented workflow, human-driven decisions.</p>
-    <div class="hero-actions">
-      <a href="#apps" class="btn btn-fill">
-        See my apps
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-      </a>
-      <a href="mailto:ennzygh@gmail.com" class="btn btn-outline">Get in touch</a>
-      <a href="https://github.com/sydneyoswald1046-star" target="_blank" class="btn btn-outline">GitHub</a>
+  <div class="hero-glow"></div>
+
+  <div class="hero-top">
+    <p class="hero-tagline">App builder, <em>shipping ideas to the store,</em><br>through code, detail and precision.</p>
+  </div>
+
+  <div class="hero-name-row">
+    <span class="hero-first">Oswald</span>
+    <span class="hero-last">Botchway.</span>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="hero-version">&#8594; V1.0</div>
+    <div class="hero-socials">
+      <a href="https://github.com/sydneyoswald1046-star" target="_blank">GITHUB</a>
+      <span class="sep">/</span>
+      <a href="https://linkedin.com" target="_blank">LINKEDIN</a>
+      <span class="sep">/</span>
+      <a href="mailto:ennzygh@gmail.com">EMAIL</a>
+    </div>
+    <div class="hero-nav">
+      <a href="#work">WORK</a>
+      <a href="#about">INFO</a>
+      <a href="#contact">CONTACT</a>
     </div>
   </div>
 </header>
 
-<!-- STATS -->
-<div class="stats-strip">
+<!-- ABOUT -->
+<div class="about-banner" id="about">
   <div class="wrap">
-    <div class="stats-row">
-      <div class="stat-box reveal">
-        <div class="stat-num c-blue" data-count="3">0</div>
-        <div class="stat-label">Production apps shipped</div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <strong>Basically, I build apps.</strong> From invoicing to live broadcast production — I design, develop, and ship real mobile applications with React Native and SwiftUI. Every project handles real payments, real users, and real infrastructure. AI-augmented workflow, human-driven decisions.
       </div>
-      <div class="stat-box reveal reveal-delay-1">
-        <div class="stat-num c-purple" data-count="2">0</div>
-        <div class="stat-label">Live on the App Store</div>
-      </div>
-      <div class="stat-box reveal reveal-delay-2">
-        <div class="stat-num c-green">10x</div>
-        <div class="stat-label">Faster with AI tools</div>
-      </div>
-      <div class="stat-box reveal reveal-delay-3">
-        <div class="stat-num c-pink">100+</div>
-        <div class="stat-label">Users served weekly</div>
+      <div class="about-stats reveal">
+        <div class="about-stat">
+          <div class="about-stat-num c1">3</div>
+          <div class="about-stat-label">Production apps</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num c2">2</div>
+          <div class="about-stat-label">On the App Store</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num c3">10x</div>
+          <div class="about-stat-label">Faster with AI</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num c4">100+</div>
+          <div class="about-stat-label">Users served weekly</div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- APPS -->
-<section id="apps">
+<!-- WORK -->
+<section id="work">
   <div class="wrap">
-    <div class="section-tag tag-blue">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
-      My Apps
-    </div>
+    <div class="section-tag tag-accent reveal">My Apps</div>
     <h2 class="section-title reveal">Apps I've built & shipped</h2>
-    <p class="section-desc reveal">Each one solves a real problem, handles real money, and is used by real people.</p>
+    <p class="section-sub reveal">Each one solves a real problem, handles real money, and is used by real people.</p>
 
-    <div class="app-grid">
-      <!-- PAWL -->
+    <div class="app-list">
       <div class="app-card reveal">
-        <div class="app-card-visual">
-          <div class="app-mockup">
-            <div class="app-mockup-notch"></div>
-            <div class="app-mockup-icon">&#128206;</div>
-            <div class="app-mockup-title" style="color:var(--blue)">PAWL</div>
-            <div class="app-mockup-lines">
-              <div class="app-mockup-line" style="width:100%"></div>
-              <div class="app-mockup-line" style="width:80%"></div>
-              <div class="app-mockup-line" style="width:60%"></div>
-              <div class="app-mockup-line" style="width:90%"></div>
-              <div class="app-mockup-line" style="width:70%"></div>
+        <div class="app-visual">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-icon">&#128206;</div>
+            <div class="phone-label">PAWL</div>
+            <div class="phone-lines">
+              <div class="phone-line" style="width:100%"></div>
+              <div class="phone-line" style="width:80%"></div>
+              <div class="phone-line" style="width:60%"></div>
+              <div class="phone-line" style="width:90%"></div>
+              <div class="phone-line" style="width:70%"></div>
             </div>
           </div>
         </div>
-        <div class="app-card-info">
-          <div class="app-card-badge tag-green">Live on App Store</div>
-          <div class="app-card-name">PAWL Invoices</div>
-          <p class="app-card-desc">Full-featured invoicing app for freelancers. Create invoices, accept card payments via Tap to Pay, send automated reminders, and manage clients — with Stripe-powered payment links on every invoice.</p>
-          <ul class="app-card-features">
+        <div class="app-info">
+          <div class="app-badge tag-green">Live on App Store</div>
+          <div class="app-name">PAWL Invoices</div>
+          <p class="app-desc">Full-featured invoicing app for freelancers. Create invoices, accept card payments via Tap to Pay, send automated reminders, and manage clients — with Stripe-powered payment links.</p>
+          <ul class="app-features">
             <li>Stripe Connect & Terminal</li>
             <li>RevenueCat subscriptions</li>
             <li>Firebase Auth + Firestore</li>
@@ -1050,41 +832,33 @@ footer p {
             <li>Dark/light themes</li>
             <li>Reanimated 4 animations</li>
           </ul>
-          <div class="app-card-tech">
-            <span class="pill">React Native</span>
-            <span class="pill">Expo SDK 54</span>
-            <span class="pill">TypeScript</span>
-            <span class="pill">Firebase</span>
-            <span class="pill">Stripe</span>
-            <span class="pill">RevenueCat</span>
+          <div class="app-pills">
+            <span class="pill">React Native</span><span class="pill">Expo SDK 54</span><span class="pill">TypeScript</span><span class="pill">Firebase</span><span class="pill">Stripe</span><span class="pill">RevenueCat</span>
           </div>
-          <a href="https://github.com/sydneyoswald1046-star/pawl-app" target="_blank" class="app-card-link">
-            View on GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-          </a>
+          <a href="https://github.com/sydneyoswald1046-star/pawl-app" target="_blank" class="app-link">View on GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
         </div>
       </div>
 
-      <!-- VALOR LIVE -->
       <div class="app-card reveal">
-        <div class="app-card-visual">
-          <div class="app-mockup">
-            <div class="app-mockup-notch"></div>
-            <div class="app-mockup-icon">&#128225;</div>
-            <div class="app-mockup-title" style="color:var(--pink)">VALOR</div>
-            <div class="app-mockup-lines">
-              <div class="app-mockup-line" style="width:100%"></div>
-              <div class="app-mockup-line" style="width:75%"></div>
-              <div class="app-mockup-line" style="width:90%"></div>
-              <div class="app-mockup-line" style="width:65%"></div>
-              <div class="app-mockup-line" style="width:85%"></div>
+        <div class="app-visual">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-icon">&#128225;</div>
+            <div class="phone-label">VALOR</div>
+            <div class="phone-lines">
+              <div class="phone-line" style="width:100%"></div>
+              <div class="phone-line" style="width:75%"></div>
+              <div class="phone-line" style="width:90%"></div>
+              <div class="phone-line" style="width:65%"></div>
+              <div class="phone-line" style="width:85%"></div>
             </div>
           </div>
         </div>
-        <div class="app-card-info">
-          <div class="app-card-badge tag-green">Live on App Store</div>
-          <div class="app-card-name">Valor Live</div>
-          <p class="app-card-desc">Real-time broadcast team coordination. Push-to-talk over mesh networking, NDI video monitoring, rundown management, and Apple TV external display output.</p>
-          <ul class="app-card-features">
+        <div class="app-info">
+          <div class="app-badge tag-green">Live on App Store</div>
+          <div class="app-name">Valor Live</div>
+          <p class="app-desc">Real-time broadcast team coordination. Push-to-talk over mesh networking, NDI video monitoring, rundown management, and Apple TV external display output.</p>
+          <ul class="app-features">
             <li>PTT via MultipeerConnectivity</li>
             <li>NDI source discovery</li>
             <li>Live rundown control</li>
@@ -1094,40 +868,33 @@ footer p {
             <li>Role-based access</li>
             <li>FCM push notifications</li>
           </ul>
-          <div class="app-card-tech">
-            <span class="pill">SwiftUI</span>
-            <span class="pill">Firebase</span>
-            <span class="pill">NDI SDK</span>
-            <span class="pill">AVFoundation</span>
-            <span class="pill">MultipeerConnectivity</span>
+          <div class="app-pills">
+            <span class="pill">SwiftUI</span><span class="pill">Firebase</span><span class="pill">NDI SDK</span><span class="pill">AVFoundation</span><span class="pill">MultipeerConnectivity</span>
           </div>
-          <a href="https://github.com/sydneyoswald1046-star/broadcasthq" target="_blank" class="app-card-link">
-            View on GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-          </a>
+          <a href="https://github.com/sydneyoswald1046-star/broadcasthq" target="_blank" class="app-link">View on GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
         </div>
       </div>
 
-      <!-- VALOR NDI -->
       <div class="app-card reveal">
-        <div class="app-card-visual">
-          <div class="app-mockup">
-            <div class="app-mockup-notch"></div>
-            <div class="app-mockup-icon">&#127909;</div>
-            <div class="app-mockup-title" style="color:var(--green)">NDI</div>
-            <div class="app-mockup-lines">
-              <div class="app-mockup-line" style="width:100%"></div>
-              <div class="app-mockup-line" style="width:85%"></div>
-              <div class="app-mockup-line" style="width:70%"></div>
-              <div class="app-mockup-line" style="width:95%"></div>
-              <div class="app-mockup-line" style="width:60%"></div>
+        <div class="app-visual">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-icon">&#127909;</div>
+            <div class="phone-label">NDI</div>
+            <div class="phone-lines">
+              <div class="phone-line" style="width:100%"></div>
+              <div class="phone-line" style="width:85%"></div>
+              <div class="phone-line" style="width:70%"></div>
+              <div class="phone-line" style="width:95%"></div>
+              <div class="phone-line" style="width:60%"></div>
             </div>
           </div>
         </div>
-        <div class="app-card-info">
-          <div class="app-card-badge tag-purple">Production</div>
-          <div class="app-card-name">Valor NDI Monitor</div>
-          <p class="app-card-desc">iPad multiview production app. Metal-accelerated rendering, tap-to-route switching, scene presets, and H.264 program recording.</p>
-          <ul class="app-card-features">
+        <div class="app-info">
+          <div class="app-badge tag-purple">Production</div>
+          <div class="app-name">Valor NDI Monitor</div>
+          <p class="app-desc">iPad multiview production app. Metal-accelerated rendering, tap-to-route switching, scene presets, and H.264 program recording.</p>
+          <ul class="app-features">
             <li>Metal zero-copy rendering</li>
             <li>5 multiview layouts</li>
             <li>Scene presets</li>
@@ -1135,16 +902,10 @@ footer p {
             <li>Tap-to-route switching</li>
             <li>NDI source management</li>
           </ul>
-          <div class="app-card-tech">
-            <span class="pill">SwiftUI</span>
-            <span class="pill">Metal</span>
-            <span class="pill">VideoToolbox</span>
-            <span class="pill">Accelerate</span>
-            <span class="pill">NDI SDK</span>
+          <div class="app-pills">
+            <span class="pill">SwiftUI</span><span class="pill">Metal</span><span class="pill">VideoToolbox</span><span class="pill">Accelerate</span><span class="pill">NDI SDK</span>
           </div>
-          <a href="https://github.com/sydneyoswald1046-star/valor-producer" target="_blank" class="app-card-link">
-            View on GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-          </a>
+          <a href="https://github.com/sydneyoswald1046-star/valor-producer" target="_blank" class="app-link">View on GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
         </div>
       </div>
     </div>
@@ -1152,42 +913,22 @@ footer p {
 </section>
 
 <!-- AI -->
-<div class="ai-banner">
+<div class="ai-strip">
   <div class="wrap">
     <div class="ai-content">
       <div class="reveal">
-        <div class="ai-left-tag">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          AI-Augmented Developer
-        </div>
-        <h3 class="ai-heading">I use AI as a <span class="gradient">force multiplier.</span></h3>
-        <p class="ai-text">Every project in this portfolio was built with AI-assisted development. I use tools like Claude Code, ChatGPT, and GitHub Copilot daily — not to replace engineering judgment, but to ship faster, debug smarter, and maintain quality at scale. Architecture decisions, product thinking, and final review are mine. The velocity is superhuman.</p>
+        <div class="section-tag tag-purple" style="margin-bottom:14px">AI-Augmented</div>
+        <h3 class="ai-heading">I use AI as a <span class="hl">force multiplier.</span></h3>
+        <p class="ai-text">Every project was built with AI-assisted development. Claude Code, ChatGPT, Copilot — not to replace engineering judgment, but to ship faster and maintain quality at scale. Architecture and product decisions are mine. The velocity is superhuman.</p>
       </div>
       <div class="reveal">
         <div class="ai-cards">
-          <div class="ai-card">
-            <div class="ai-card-num">3</div>
-            <div class="ai-card-label">Apps built with AI workflows</div>
-          </div>
-          <div class="ai-card">
-            <div class="ai-card-num">10x</div>
-            <div class="ai-card-label">Prompt to production</div>
-          </div>
-          <div class="ai-card">
-            <div class="ai-card-num">2</div>
-            <div class="ai-card-label">Live on App Store</div>
-          </div>
-          <div class="ai-card">
-            <div class="ai-card-num">0</div>
-            <div class="ai-card-label">Corners cut</div>
-          </div>
+          <div class="ai-card"><div class="ai-card-num">3</div><div class="ai-card-label">Apps built with AI</div></div>
+          <div class="ai-card"><div class="ai-card-num">10x</div><div class="ai-card-label">Prompt to production</div></div>
+          <div class="ai-card"><div class="ai-card-num">2</div><div class="ai-card-label">Live on App Store</div></div>
+          <div class="ai-card"><div class="ai-card-num">0</div><div class="ai-card-label">Corners cut</div></div>
           <div class="ai-tools-row">
-            <span class="ai-tool">Claude Code</span>
-            <span class="ai-tool">Claude</span>
-            <span class="ai-tool">ChatGPT</span>
-            <span class="ai-tool">GitHub Copilot</span>
-            <span class="ai-tool">Cursor</span>
-            <span class="ai-tool">Prompt Engineering</span>
+            <span class="ai-pill">Claude Code</span><span class="ai-pill">Claude</span><span class="ai-pill">ChatGPT</span><span class="ai-pill">GitHub Copilot</span><span class="ai-pill">Cursor</span><span class="ai-pill">Prompt Engineering</span>
           </div>
         </div>
       </div>
@@ -1196,102 +937,28 @@ footer p {
 </div>
 
 <!-- SKILLS -->
-<section id="skills">
+<section>
   <div class="wrap">
-    <div class="section-tag tag-purple">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      Tech Stack
-    </div>
+    <div class="section-tag tag-blue reveal">Tech Stack</div>
     <h2 class="section-title reveal">Skills & tools</h2>
-    <p class="section-desc reveal">Everything I use to take an app from idea to production.</p>
-
-    <div class="skills-mega">
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">&#128241;</div>
-        <div class="skill-card-title">Mobile & Frontend</div>
-        <ul class="skill-card-items">
-          <li>React Native / Expo</li>
-          <li>SwiftUI</li>
-          <li>TypeScript</li>
-          <li>Swift</li>
-          <li>Reanimated 4</li>
-          <li>Metal Shaders</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">&#9729;&#65039;</div>
-        <div class="skill-card-title">Backend & Cloud</div>
-        <ul class="skill-card-items">
-          <li>Firebase / Firestore</li>
-          <li>Cloud Functions</li>
-          <li>Stripe Connect & Terminal</li>
-          <li>RevenueCat / StoreKit</li>
-          <li>Node.js</li>
-          <li>FCM Push Notifications</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">&#128268;</div>
-        <div class="skill-card-title">Native Frameworks</div>
-        <ul class="skill-card-items">
-          <li>AVFoundation</li>
-          <li>MultipeerConnectivity</li>
-          <li>NDI SDK</li>
-          <li>NFC / Tap to Pay</li>
-          <li>GameController</li>
-          <li>VideoToolbox</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">&#129302;</div>
-        <div class="skill-card-title">AI & Productivity</div>
-        <ul class="skill-card-items">
-          <li>Claude Code</li>
-          <li>Claude / ChatGPT</li>
-          <li>GitHub Copilot</li>
-          <li>Cursor</li>
-          <li>Prompt Engineering</li>
-          <li>AI-Augmented Workflow</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">&#128736;&#65039;</div>
-        <div class="skill-card-title">DevOps & Tools</div>
-        <ul class="skill-card-items">
-          <li>Git / GitHub</li>
-          <li>EAS Build & Submit</li>
-          <li>App Store Connect</li>
-          <li>Firebase Hosting</li>
-          <li>ServiceNow</li>
-          <li>Active Directory</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">&#127912;</div>
-        <div class="skill-card-title">Design & Media</div>
-        <ul class="skill-card-items">
-          <li>Figma</li>
-          <li>NDI Production</li>
-          <li>A/V Engineering</li>
-          <li>Live Streaming</li>
-          <li>Camera Systems</li>
-          <li>Lighting Design</li>
-        </ul>
-      </div>
+    <p class="section-sub reveal">Everything I use to take an app from idea to production.</p>
+    <div class="skills-grid">
+      <div class="sk-card reveal"><div class="sk-icon">&#128241;</div><div class="sk-title">Mobile & Frontend</div><ul class="sk-list"><li>React Native / Expo</li><li>SwiftUI</li><li>TypeScript</li><li>Swift</li><li>Reanimated 4</li><li>Metal Shaders</li></ul></div>
+      <div class="sk-card reveal"><div class="sk-icon">&#9729;&#65039;</div><div class="sk-title">Backend & Cloud</div><ul class="sk-list"><li>Firebase / Firestore</li><li>Cloud Functions</li><li>Stripe Connect & Terminal</li><li>RevenueCat / StoreKit</li><li>Node.js</li><li>FCM Push Notifications</li></ul></div>
+      <div class="sk-card reveal"><div class="sk-icon">&#128268;</div><div class="sk-title">Native Frameworks</div><ul class="sk-list"><li>AVFoundation</li><li>MultipeerConnectivity</li><li>NDI SDK</li><li>NFC / Tap to Pay</li><li>GameController</li><li>VideoToolbox</li></ul></div>
+      <div class="sk-card reveal"><div class="sk-icon">&#129302;</div><div class="sk-title">AI & Productivity</div><ul class="sk-list"><li>Claude Code</li><li>Claude / ChatGPT</li><li>GitHub Copilot</li><li>Cursor</li><li>Prompt Engineering</li><li>AI-Augmented Workflow</li></ul></div>
+      <div class="sk-card reveal"><div class="sk-icon">&#128736;&#65039;</div><div class="sk-title">DevOps & Tools</div><ul class="sk-list"><li>Git / GitHub</li><li>EAS Build & Submit</li><li>App Store Connect</li><li>Firebase Hosting</li><li>ServiceNow</li><li>Active Directory</li></ul></div>
+      <div class="sk-card reveal"><div class="sk-icon">&#127912;</div><div class="sk-title">Design & Media</div><ul class="sk-list"><li>Figma</li><li>NDI Production</li><li>A/V Engineering</li><li>Live Streaming</li><li>Camera Systems</li><li>Lighting Design</li></ul></div>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section>
   <div class="wrap">
-    <div class="section-tag tag-orange">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      Experience
-    </div>
+    <div class="section-tag tag-orange reveal">Experience</div>
     <h2 class="section-title reveal">Where I've worked</h2>
-    <p class="section-desc reveal">From IT support to shipping apps on the App Store.</p>
-
+    <p class="section-sub reveal">From IT support to shipping apps on the App Store.</p>
     <div class="timeline reveal">
       <div class="tl-item">
         <div class="tl-dot"></div>
@@ -1300,9 +967,9 @@ footer p {
         <div class="tl-company">Gospel Pillars Church International — Arlington, TX</div>
         <ul class="tl-bullets">
           <li>Built Valor Live and Valor Producer from scratch for real broadcast production needs</li>
-          <li>Managed full A/V pipeline — live streaming with zero-downtime for 100+ weekly attendees</li>
+          <li>Managed full A/V pipeline — live streaming with zero-downtime for 100+ weekly</li>
           <li>Configured cameras, mics, lighting, projectors, and presentation software</li>
-          <li>Deployed NDI-based video switching workflow across multiple production stations</li>
+          <li>Deployed NDI-based video switching workflow across multiple stations</li>
           <li>Trained volunteers on broadcast equipment and production workflows</li>
         </ul>
       </div>
@@ -1337,10 +1004,7 @@ footer p {
 <!-- EDUCATION -->
 <section>
   <div class="wrap">
-    <div class="section-tag tag-cyan">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1 2 3 6 3s6-2 6-3v-5"/></svg>
-      Education
-    </div>
+    <div class="section-tag tag-accent reveal">Education</div>
     <h2 class="section-title reveal">Education</h2>
     <div style="margin-top:32px">
       <div class="edu-card reveal">
@@ -1348,7 +1012,7 @@ footer p {
         <div>
           <div class="edu-title">Information Technology</div>
           <div class="edu-school">University of North Texas — Denton, TX</div>
-          <div class="edu-date">Coursework in networking, systems administration, and IT infrastructure</div>
+          <div class="edu-note">Coursework in networking, systems administration, and IT infrastructure</div>
         </div>
       </div>
     </div>
@@ -1357,22 +1021,19 @@ footer p {
 
 <!-- CONTACT -->
 <section id="contact" class="contact-section">
-  <div class="contact-glow contact-glow-1"></div>
-  <div class="contact-glow contact-glow-2"></div>
+  <div class="contact-glow cg1"></div>
+  <div class="contact-glow cg2"></div>
   <div class="wrap">
     <div class="reveal">
-      <div class="section-tag tag-green" style="margin:0 auto 16px">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Let's talk
-      </div>
-      <h2 class="contact-title">Let's build<br><span class="gradient">something together.</span></h2>
-      <p class="contact-sub">Open to mobile engineering roles, freelance projects, and ambitious collaborations.</p>
+      <div class="section-tag tag-green" style="margin:0 auto 14px">Let's talk</div>
+      <h2 class="contact-title">Let's build <span class="hl">something together.</span></h2>
+      <p class="contact-sub">Open to mobile engineering roles, freelance projects, and collaborations.</p>
       <div class="contact-btns">
         <a href="mailto:ennzygh@gmail.com" class="btn btn-fill">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           ennzygh@gmail.com
         </a>
-        <a href="https://github.com/sydneyoswald1046-star" target="_blank" class="btn btn-outline">GitHub</a>
+        <a href="https://github.com/sydneyoswald1046-star" target="_blank" class="btn btn-ghost">GitHub</a>
       </div>
     </div>
   </div>
@@ -1389,16 +1050,12 @@ footer p {
 </footer>
 
 <script>
-// Scroll reveals
 const reveals = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-  });
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => obs.observe(el));
 
-// Smooth nav scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -1406,26 +1063,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
-
-// Animated counters
-const counters = document.querySelectorAll('[data-count]');
-const cObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const el = e.target;
-      const target = parseInt(el.dataset.count);
-      let current = 0;
-      const step = () => {
-        current++;
-        el.textContent = current;
-        if (current < target) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-      cObs.unobserve(el);
-    }
-  });
-}, { threshold: 0.5 });
-counters.forEach(el => cObs.observe(el));
 </script>
 </body>
 </html>
